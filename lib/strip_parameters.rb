@@ -1,7 +1,8 @@
 # frozen_string_literal: true
 
-require 'strip_parameters/stripper'
-# Registers before_action filter that nillify empty parameters
+require "strip_parameters/stripper"
+
+# Registers before_action filter to strip parameters
 module StripParameters
   extend ActiveSupport::Concern
 

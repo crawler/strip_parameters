@@ -3,7 +3,7 @@
 module StripParameters
   # Singleton that performs the strip work
   class Stripper
-    # :only and an :except options are for the actions filtering, not paratmeters
+    # :only and an :except options are for the actions filtering, not parameters
     VALID_OPTIONS = %i[only except if unless allow_empty collapse_spaces replace_newlines regex].freeze
 
     # Unicode invisible and whitespace characters. The POSIX character class
@@ -18,10 +18,10 @@ module StripParameters
     #   U+2060 WORD JOINER
     #   U+FEFF ZERO WIDTH NO-BREAK SPACE
     MULTIBYTE_WHITE = "\u180E\u200B\u200C\u200D\u2060\uFEFF"
-    MULTIBYTE_SPACE = /[[:space:]#{MULTIBYTE_WHITE}]/.freeze
-    MULTIBYTE_SPACE_REGEX = /\A#{MULTIBYTE_SPACE}+|#{MULTIBYTE_SPACE}+\z/.freeze
-    MULTIBYTE_BLANK = /[[:blank:]#{MULTIBYTE_WHITE}]/.freeze
-    MULTIBYTE_BLANK_REGEX = /#{MULTIBYTE_BLANK}+/.freeze
+    MULTIBYTE_SPACE = /[[:space:]#{MULTIBYTE_WHITE}]/
+    MULTIBYTE_SPACE_REGEX = /\A#{MULTIBYTE_SPACE}+|#{MULTIBYTE_SPACE}+\z/
+    MULTIBYTE_BLANK = /[[:blank:]#{MULTIBYTE_WHITE}]/
+    MULTIBYTE_BLANK_REGEX = /#{MULTIBYTE_BLANK}+/
 
     def self.strip(paramters, **options)
       paramters.transform_values! do |value|
@@ -37,16 +37,16 @@ module StripParameters
 
     def self.process_string(value, regex: nil, replace_newlines: false, collapse_spaces: false, allow_empty: false)
       strip_string(value)
-      value.gsub!(regex, '') if regex
-      value.gsub!(/[\r\n]+/, ' ') if replace_newlines
+      value.gsub!(regex, "") if regex
+      value.gsub!(/[\r\n]+/, " ") if replace_newlines
       collapse_inner_string_spaces(value) if collapse_spaces
 
-      value if value != '' || allow_empty
+      value if value != "" || allow_empty
     end
 
     def self.strip_string(value)
       if Encoding.compatible?(value, MULTIBYTE_SPACE)
-        value.gsub!(MULTIBYTE_SPACE_REGEX, '') # TODO: ensure that the regexp match only outer spaces
+        value.gsub!(MULTIBYTE_SPACE_REGEX, "") # TODO: ensure that the regexp match only outer spaces
       else
         value.strip!
       end
@@ -54,9 +54,9 @@ module StripParameters
 
     def self.collapse_inner_string_spaces(value)
       if Encoding.compatible?(value, MULTIBYTE_BLANK)
-        value.gsub!(MULTIBYTE_BLANK_REGEX, ' ')
+        value.gsub!(MULTIBYTE_BLANK_REGEX, " ")
       else
-        value.squeeze!(' ')
+        value.squeeze!(" ")
       end
     end
 

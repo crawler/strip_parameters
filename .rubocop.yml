@@ -1,4 +1,9 @@
-require: rubocop-performance
+require:
+  - standard
+  - rubocop-performance
+
+inherit_gem:
+  standard: config/ruby-3.0.yml
+
 AllCops:
-  TargetRubyVersion: 2.4
   NewCops: enable
