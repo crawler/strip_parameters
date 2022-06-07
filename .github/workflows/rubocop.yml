@@ -12,6 +12,5 @@ jobs:
         with:
           ruby-version: "3.0"
           bundler-cache: true
-
       - name: Ruby linter
         run: bundle exec rubocop
