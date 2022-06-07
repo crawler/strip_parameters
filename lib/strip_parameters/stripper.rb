@@ -1,9 +1,8 @@
 # frozen_string_literal: true
 
 module StripParameters
-  # Singleton that performs the strip work
+  # Singleton that does the actual stripping.
   class Stripper
-    # :only and an :except options are for the actions filtering, not parameters
     VALID_OPTIONS = %i[only except if unless allow_empty collapse_spaces replace_newlines regex].freeze
 
     # Unicode invisible and whitespace characters. The POSIX character class
@@ -36,17 +35,17 @@ module StripParameters
     end
 
     def self.process_string(value, regex: nil, replace_newlines: false, collapse_spaces: false, allow_empty: false)
-      strip_string(value)
       value.gsub!(regex, "") if regex
       value.gsub!(/[\r\n]+/, " ") if replace_newlines
       collapse_inner_string_spaces(value) if collapse_spaces
+      strip_string(value)
 
       value if value != "" || allow_empty
     end
 
     def self.strip_string(value)
       if Encoding.compatible?(value, MULTIBYTE_SPACE)
-        value.gsub!(MULTIBYTE_SPACE_REGEX, "") # TODO: ensure that the regexp match only outer spaces
+        value.gsub!(MULTIBYTE_SPACE_REGEX, "")
       else
         value.strip!
       end
