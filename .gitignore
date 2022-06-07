@@ -1,0 +1,6 @@
+
+/test/support/stripped_app/log/*
+!/test/support/stripped_app/log/.keep
+
+/test/support/stripped_app/tmp/*
+!/test/support/stripped_app/tmp/.keep

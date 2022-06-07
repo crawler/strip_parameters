@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+set -euo pipefail
+IFS=$'\n\t'
+set -x
+
+cat .tool-versions
+ruby -v
+bundle install
+which overcommit > /dev/null 2>&1 && overcommit --install
