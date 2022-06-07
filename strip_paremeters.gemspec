@@ -14,17 +14,12 @@ Gem::Specification.new do |s|
 
   s.metadata = {
     "source_code_uri" => "https://github.com/crawler/strip_parameters/tree/v#{StripParameters::VERSION}",
-    "rubygems_mfa_required" => true,
+    "rubygems_mfa_required" => "true"
   }
 
   s.required_ruby_version = ">= 2.4.0"
 
   s.add_runtime_dependency "actionpack", ">= 4.0"
-
-  s.add_development_dependency "bundler", ">= 2.1.4"
-  s.add_development_dependency "standard", ">=1.12.1"
-  s.add_development_dependency "rubocop-performance", ">=1.13.3"
-
   s.files = `git ls-files`.split("\n")
   s.test_files = `git ls-files -- test/*`.split("\n")
 end
