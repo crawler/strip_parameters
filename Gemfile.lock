@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    strip_parameters (0.0.2)
+    strip_parameters (0.1.0)
       actionpack (>= 4.0)
 
 GEM
